@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateEvent, deleteEvent } from '@/lib/calendar'
+import { clearCalendarCache } from '@/lib/calendarCache'
 
 export async function PATCH(
   request: NextRequest,
@@ -8,6 +9,10 @@ export async function PATCH(
   try {
     const payload = await request.json()
     await updateEvent(params.id, payload)
+
+    // Clear cache after updating event
+    clearCalendarCache()
+
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Error updating calendar event:', error)
@@ -24,6 +29,10 @@ export async function DELETE(
 ) {
   try {
     await deleteEvent(params.id)
+
+    // Clear cache after deleting event
+    clearCalendarCache()
+
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Error deleting calendar event:', error)

@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getEvents, createEvent } from '@/lib/calendar'
+import { calendarCache, CALENDAR_CACHE_TTL, clearCalendarCache } from '@/lib/calendarCache'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 30
-
-let cache: Map<string, { data: any; timestamp: number }> = new Map()
-const CACHE_TTL = 300000 // 5 minutes
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,9 +12,9 @@ export async function GET(request: NextRequest) {
     const to = searchParams.get('to')
 
     const cacheKey = `${from}-${to}`
-    const cached = cache.get(cacheKey)
+    const cached = calendarCache.get(cacheKey)
 
-    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    if (cached && Date.now() - cached.timestamp < CALENDAR_CACHE_TTL) {
       return NextResponse.json(cached.data)
     }
 
@@ -27,7 +25,7 @@ export async function GET(request: NextRequest) {
 
     const events = await getEvents(params)
 
-    cache.set(cacheKey, { data: events, timestamp: Date.now() })
+    calendarCache.set(cacheKey, { data: events, timestamp: Date.now() })
 
     return NextResponse.json(events)
   } catch (error) {
@@ -37,7 +35,7 @@ export async function GET(request: NextRequest) {
     const from = searchParams.get('from')
     const to = searchParams.get('to')
     const cacheKey = `${from}-${to}`
-    const cached = cache.get(cacheKey)
+    const cached = calendarCache.get(cacheKey)
 
     if (cached) {
       return NextResponse.json(cached.data)
@@ -51,6 +49,10 @@ export async function POST(request: NextRequest) {
   try {
     const payload = await request.json()
     const event = await createEvent(payload)
+
+    // Clear cache after creating event
+    clearCalendarCache()
+
     return NextResponse.json(event)
   } catch (error) {
     console.error('Error creating calendar event:', error)
