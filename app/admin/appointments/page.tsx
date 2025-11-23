@@ -283,25 +283,14 @@ export default function AdminAppointments() {
           <CardHeader>
             <CardTitle>Google Calendar</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col items-center justify-center py-16 space-y-6">
-            <div className="text-center space-y-2">
-              <p className="text-lg text-[#2A2A2A]">
-                Click the button below to open Google Calendar in a new tab
-              </p>
-              <p className="text-sm text-gray-500">
-                You'll be able to create, edit, and delete events directly in Google Calendar
-              </p>
-            </div>
-            <Button
-              onClick={() => window.open('https://calendar.google.com/calendar/u/0/r?cid=1c82143bf911816e35b0a7ddfb78e629c24fdaa19ed90f38210e336c549129be@group.calendar.google.com', '_blank')}
-              size="lg"
-              className="px-8 py-6 text-lg"
-            >
-              Open Google Calendar
-            </Button>
-            <p className="text-xs text-gray-400 max-w-md text-center">
-              Changes made in Google Calendar will automatically sync to this dashboard
-            </p>
+          <CardContent className="p-0">
+            <iframe
+              src="https://calendar.google.com/calendar/embed?src=1c82143bf911816e35b0a7ddfb78e629c24fdaa19ed90f38210e336c549129be%40group.calendar.google.com&ctz=America%2FChicago&mode=WEEK"
+              style={{ border: 0 }}
+              width="100%"
+              height="800"
+              frameBorder={0}
+            />
           </CardContent>
         </Card>
       )}
