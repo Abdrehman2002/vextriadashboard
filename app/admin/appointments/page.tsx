@@ -40,7 +40,7 @@ export default function AdminAppointments() {
       const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
 
       const res = await fetch(
-        `/api/calendar/events?from=${firstDay.toISOString()}&to=${lastDay.toISOString()}`
+        `/api/google-calendar/list-events?timeMin=${firstDay.toISOString()}&timeMax=${lastDay.toISOString()}`
       )
       const data = await res.json()
       setEvents(data)
@@ -96,7 +96,11 @@ export default function AdminAppointments() {
     if (!confirm('Are you sure you want to delete this appointment?')) return
 
     try {
-      await fetch(`/api/calendar/events/${id}`, { method: 'DELETE' })
+      await fetch('/api/google-calendar/delete-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventId: id }),
+      })
       fetchEvents()
     } catch (error) {
       console.error('Error deleting event:', error)
@@ -119,13 +123,13 @@ export default function AdminAppointments() {
 
     try {
       if (selectedEvent) {
-        await fetch(`/api/calendar/events/${selectedEvent.id}`, {
-          method: 'PATCH',
+        await fetch('/api/google-calendar/update-event', {
+          method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
+          body: JSON.stringify({ ...payload, eventId: selectedEvent.id }),
         })
       } else {
-        await fetch('/api/calendar/events', {
+        await fetch('/api/google-calendar/create-event', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
