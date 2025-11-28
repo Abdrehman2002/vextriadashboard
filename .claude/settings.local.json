@@ -16,7 +16,8 @@
       "Bash(netstat:*)",
       "Bash(findstr:*)",
       "Bash(taskkill:*)",
-      "Bash(del appicon.png)"
+      "Bash(del appicon.png)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

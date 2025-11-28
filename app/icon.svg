@@ -1,5 +1,5 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <circle cx="256" cy="256" r="256" fill="#F8F6F2"/>
-  <text x="256" y="280" font-family="Arial, sans-serif" font-size="120" font-weight="bold" text-anchor="middle" fill="#000000">CORAH</text>
-  <text x="256" y="340" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#2A2A2A">ALWAYS ON. ALWAYS PROFESSIONAL.</text>
+  <text x="256" y="280" fontFamily="Arial, sans-serif" fontSize="120" fontWeight="bold" textAnchor="middle" fill="#000000">CORAH</text>
+  <text x="256" y="340" fontFamily="Arial, sans-serif" fontSize="20" textAnchor="middle" fill="#2A2A2A">ALWAYS ON. ALWAYS PROFESSIONAL.</text>
 </svg>
