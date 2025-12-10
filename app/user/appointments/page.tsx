@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, MapPin } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface CalendarEvent {
   id: string
@@ -40,6 +41,7 @@ export default function UserAppointments() {
   const [activeTab, setActiveTab] = useState<'normal' | 'google'>('normal')
   const [showDialog, setShowDialog] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null)
+  const [selectedDay, setSelectedDay] = useState<number | null>(null)
 
   const fetchEvents = async () => {
     try {
@@ -81,6 +83,10 @@ export default function UserAppointments() {
     setShowDialog(true)
   }
 
+  const handleDayClick = (day: number) => {
+    setSelectedDay(day)
+  }
+
   const getDaysInMonth = () => {
     const year = currentDate.getFullYear()
     const month = currentDate.getMonth()
@@ -102,7 +108,6 @@ export default function UserAppointments() {
   const getEventsForDay = (day: number) => {
     const year = currentDate.getFullYear()
     const month = currentDate.getMonth()
-    const dayDate = new Date(year, month, day)
 
     return events.filter((event) => {
       const eventDate = new Date(event.start)
@@ -128,145 +133,260 @@ export default function UserAppointments() {
   }
 
   const days = getDaysInMonth()
+  const totalAppointments = events.length
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#000000]">Appointments</h1>
-        <div className="text-xs sm:text-sm text-[#2A2A2A] opacity-70">
-          Mode: User – read-only
+        <div>
+          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent">
+            Appointments Calendar
+          </h1>
+          <p className="text-sm text-gray-400 mt-1">
+            {totalAppointments} {totalAppointments === 1 ? 'appointment' : 'appointments'} this month · Read-only view
+          </p>
         </div>
       </div>
 
-      <div className="flex gap-2 border-b border-black/5">
-        <Button
-          variant={activeTab === 'normal' ? 'default' : 'ghost'}
+      {/* Tabs */}
+      <div className="flex gap-1 border-b border-white/10 bg-white/5 rounded-t-2xl p-1">
+        <button
           onClick={() => setActiveTab('normal')}
-          className="rounded-b-none"
+          className={cn(
+            "px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200",
+            activeTab === 'normal'
+              ? 'bg-purple-600/30 text-purple-300 border-b-2 border-purple-500 shadow-sm'
+              : 'text-gray-400 hover:text-white hover:bg-white/5'
+          )}
         >
+          <CalendarIcon className="h-4 w-4 inline mr-2" />
           Calendar View
-        </Button>
-        <Button
-          variant={activeTab === 'google' ? 'default' : 'ghost'}
+        </button>
+        <button
           onClick={() => setActiveTab('google')}
-          className="rounded-b-none"
+          className={cn(
+            "px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200",
+            activeTab === 'google'
+              ? 'bg-purple-600/30 text-purple-300 border-b-2 border-purple-500 shadow-sm'
+              : 'text-gray-400 hover:text-white hover:bg-white/5'
+          )}
         >
           Google Calendar
-        </Button>
+        </button>
       </div>
 
       {activeTab === 'normal' && (
-        <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle>
-              {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-            </CardTitle>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={previousMonth}>
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="sm" onClick={nextMonth}>
-                <ChevronRight className="h-4 w-4" />
-              </Button>
+        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl shadow-black/40 overflow-hidden">
+          {/* Calendar Header */}
+          <div className="p-6 border-b border-white/10">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-white">
+                  {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+                </h2>
+                <p className="text-sm text-gray-400 mt-1">
+                  {totalAppointments} scheduled
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={previousMonth}
+                  className="h-10 w-10 flex items-center justify-center rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all duration-200 hover:-translate-y-0.5"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={nextMonth}
+                  className="h-10 w-10 flex items-center justify-center rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all duration-200 hover:-translate-y-0.5"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
             </div>
           </div>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-7 gap-2">
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-              <div key={day} className="text-center font-medium text-sm text-[#2A2A2A] py-2">
-                {day}
-              </div>
-            ))}
-            {days.map((day, index) => (
-              <div
-                key={index}
-                className={`min-h-[100px] border border-black/5 rounded-md p-2 ${
-                  day ? 'bg-white' : 'bg-[#F8F6F2]'
-                }`}
-              >
-                {day && (
-                  <>
-                    <div className="text-sm font-medium text-[#000000] mb-1">{day}</div>
-                    <div className="space-y-1">
-                      {loading ? (
-                        <div className="h-6 bg-gray-200 rounded animate-pulse" />
-                      ) : (
-                        getEventsForDay(day).map((event) => (
-                          <div
-                            key={event.id}
-                            onClick={() => handleViewEvent(event)}
-                            className="text-xs bg-[#000000] text-white px-2 py-1 rounded cursor-pointer hover:bg-[#111111]"
-                          >
-                            {event.title}
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </>
-                )}
-              </div>
-            ))}
+
+          {/* Calendar Grid */}
+          <div className="p-8">
+            <div className="grid grid-cols-7 gap-4">
+              {/* Day Headers */}
+              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+                <div key={day} className="text-center font-semibold text-xs uppercase tracking-wider text-purple-300 py-2">
+                  {day}
+                </div>
+              ))}
+
+              {/* Day Cells */}
+              {days.map((day, index) => {
+                const dayEvents = day ? getEventsForDay(day) : []
+                const hasEvents = dayEvents.length > 0
+                const isSelected = selectedDay === day
+
+                return (
+                  <div
+                    key={index}
+                    onClick={() => day && handleDayClick(day)}
+                    className={cn(
+                      "min-h-[120px] rounded-2xl p-3 transition-all duration-200",
+                      day
+                        ? cn(
+                            "bg-[#120A24] border",
+                            isSelected && "border-purple-500/50 bg-purple-500/10",
+                            !isSelected && hasEvents && "border-purple-500/30 cursor-pointer hover:border-purple-500/50",
+                            !isSelected && !hasEvents && "border-white/5",
+                            hasEvents && "hover:bg-white/5 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-purple-500/20 cursor-pointer"
+                          )
+                        : 'bg-transparent'
+                    )}
+                  >
+                    {day && (
+                      <div className="space-y-2">
+                        {/* Day Number and Indicator */}
+                        <div className="flex items-start justify-between">
+                          <span className="text-lg font-bold text-white">{day}</span>
+                          {hasEvents && (
+                            <span className="px-2 py-0.5 bg-purple-500/20 text-purple-300 text-[10px] font-semibold rounded-full border border-purple-500/30">
+                              {dayEvents.length}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Event Previews */}
+                        <div className="space-y-1.5">
+                          {loading ? (
+                            <div className="h-5 bg-white/10 rounded animate-pulse" />
+                          ) : (
+                            dayEvents.slice(0, 2).map((event) => {
+                              const startTime = new Date(event.start).toLocaleTimeString('en-US', {
+                                hour: 'numeric',
+                                minute: '2-digit',
+                                hour12: true
+                              })
+
+                              return (
+                                <div
+                                  key={event.id}
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    handleViewEvent(event)
+                                  }}
+                                  className="group relative bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 hover:border-purple-500/40 rounded-lg p-2 cursor-pointer transition-all duration-200"
+                                >
+                                  <div className="flex items-start gap-1.5">
+                                    <Clock className="h-3 w-3 text-purple-400 mt-0.5 flex-shrink-0" />
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-xs font-medium text-white truncate">
+                                        {event.title}
+                                      </p>
+                                      <p className="text-[10px] text-purple-300/70 mt-0.5">
+                                        {startTime}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              )
+                            })
+                          )}
+                          {dayEvents.length > 2 && (
+                            <p className="text-[10px] text-gray-400 text-center py-1">
+                              +{dayEvents.length - 2} more
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
       )}
 
       {activeTab === 'google' && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Google Calendar View</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
+        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl shadow-black/40 overflow-hidden">
+          <div className="p-6 border-b border-white/10">
+            <h3 className="text-lg font-semibold text-white">Google Calendar Integration</h3>
+            <p className="text-sm text-gray-400 mt-1">View your calendar in real-time</p>
+          </div>
+          <div className="p-0">
             <iframe
               src="https://calendar.google.com/calendar/embed?src=1c82143bf911816e35b0a7ddfb78e629c24fdaa19ed90f38210e336c549129be%40group.calendar.google.com&ctz=America%2FChicago"
               style={{ border: 0 }}
               width="100%"
               height="800"
               frameBorder={0}
-              scrolling="no"
+              className="w-full"
             />
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent>
+        <DialogContent className="max-w-2xl bg-[#0B0715] border-white/10">
           <DialogHeader>
-            <DialogTitle>Appointment Details</DialogTitle>
+            <DialogTitle className="text-white">Appointment Details</DialogTitle>
           </DialogHeader>
 
           {selectedEvent && (
-            <div className="space-y-4 py-4">
-              <div>
-                <p className="text-sm font-medium text-[#2A2A2A]">Title</p>
-                <p className="text-base text-[#000000]">{selectedEvent.title}</p>
+            <div className="space-y-6 py-4">
+              <div className="space-y-2">
+                <p className="text-xs font-medium text-purple-300 uppercase tracking-wider">Title</p>
+                <p className="text-lg font-semibold text-white">{selectedEvent.title}</p>
               </div>
 
-              <div>
-                <p className="text-sm font-medium text-[#2A2A2A]">Date & Time</p>
-                <p className="text-base text-[#000000]">
-                  {new Date(selectedEvent.start).toLocaleString()} -{' '}
-                  {new Date(selectedEvent.end).toLocaleTimeString()}
+              <div className="space-y-2">
+                <p className="text-xs font-medium text-purple-300 uppercase tracking-wider">Date & Time</p>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-purple-400" />
+                  <p className="text-base text-gray-300">
+                    {new Date(selectedEvent.start).toLocaleString('en-US', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: '2-digit',
+                      hour12: true
+                    })}
+                  </p>
+                </div>
+                <p className="text-sm text-gray-400 ml-6">
+                  Ends at {new Date(selectedEvent.end).toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                  })}
                 </p>
               </div>
 
               {selectedEvent.location && (
-                <div>
-                  <p className="text-sm font-medium text-[#2A2A2A]">Location</p>
-                  <p className="text-base text-[#000000]">{selectedEvent.location}</p>
+                <div className="space-y-2">
+                  <p className="text-xs font-medium text-purple-300 uppercase tracking-wider">Location</p>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-emerald-400" />
+                    <p className="text-base text-gray-300">{selectedEvent.location}</p>
+                  </div>
                 </div>
               )}
 
               {selectedEvent.description && (
-                <div>
-                  <p className="text-sm font-medium text-[#2A2A2A]">Description</p>
-                  <p className="text-base text-[#000000]">{selectedEvent.description}</p>
+                <div className="space-y-2">
+                  <p className="text-xs font-medium text-purple-300 uppercase tracking-wider">Description</p>
+                  <p className="text-base text-gray-300 leading-relaxed">{selectedEvent.description}</p>
                 </div>
               )}
             </div>
           )}
+
+          <div className="flex justify-end pt-4 border-t border-white/10">
+            <Button
+              onClick={() => setShowDialog(false)}
+              className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white border-0"
+            >
+              Close
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

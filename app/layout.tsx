@@ -5,11 +5,11 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "CORAH Dashboard",
+  title: "CLARIO Dashboard",
   description: "AI calling & booking control panel",
   icons: {
-    icon: '/assets/corahlogo.png',
-    apple: '/assets/corahlogo.png',
+    icon: '/assets/favicon.svg',
+    apple: '/assets/favicon.svg',
   },
 }
 

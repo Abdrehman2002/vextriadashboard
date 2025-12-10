@@ -4,25 +4,43 @@
 
 @layer base {
   :root {
-    --background: 40 40% 97%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 16%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 0%;
+    /* Background Colors - Dark purple/black theme */
+    --background: 260 85% 3%;  /* #05030B */
+    --foreground: 0 0% 100%;  /* #FFFFFF */
+
+    /* Card/Panel Colors */
+    --card: 260 75% 5%;  /* #0B0715 */
+    --card-foreground: 0 0% 100%;  /* #FFFFFF */
+
+    /* Popover Colors */
+    --popover: 260 75% 5%;  /* #0B0715 */
+    --popover-foreground: 0 0% 100%;  /* #FFFFFF */
+
+    /* Primary Colors - Bright Purple */
+    --primary: 270 75% 62%;  /* #A855F7 */
+    --primary-foreground: 0 0% 100%;  /* #FFFFFF */
+
+    /* Secondary Colors */
+    --secondary: 270 70% 35%;  /* #4C1D95 */
+    --secondary-foreground: 0 0% 100%;  /* #FFFFFF */
+
+    /* Muted Colors */
+    --muted: 220 13% 30%;  /* #4B5563 */
+    --muted-foreground: 220 13% 82%;  /* #D1D5DB */
+
+    /* Accent Colors - Light Purple */
+    --accent: 270 75% 75%;  /* #C084FC */
+    --accent-foreground: 260 85% 3%;  /* #05030B */
+
+    /* Destructive Colors */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 0% / 0.05;
-    --input: 0 0% 0% / 0.05;
-    --ring: 0 0% 0%;
+
+    /* Border & Input */
+    --border: 210 16% 16%;  /* #1F2933 */
+    --input: 210 16% 16%;  /* #1F2933 */
+    --ring: 270 75% 62%;  /* #A855F7 */
+
     --radius: 0.5rem;
   }
 }
@@ -32,6 +50,75 @@
     @apply border-border;
   }
   body {
-    @apply bg-[#F8F6F2] text-foreground;
+    @apply bg-background text-foreground;
   }
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.5);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.7);
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Tremor Chart Customization */
+.tremor-DonutChart-slice {
+  stroke-width: 2;
+  stroke: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Recharts pie/donut segments */
+.recharts-pie-sector path {
+  opacity: 1 !important;
+}
+
+/* Make chart text more visible */
+.recharts-text {
+  fill: white !important;
+  font-weight: 500;
+}
+
+.recharts-label {
+  fill: white !important;
+  font-weight: 600;
+}
+
+/* Donut chart specific - force colors */
+.recharts-layer.recharts-pie-sector path {
+  stroke: rgba(255, 255, 255, 0.2) !important;
+  stroke-width: 2;
+}
+
+/* Grid lines styling */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.06);
+}
+
+/* Axis styling */
+.recharts-cartesian-axis-tick-value {
+  fill: rgba(255, 255, 255, 0.6) !important;
+}
+
+.recharts-cartesian-axis-line {
+  stroke: rgba(255, 255, 255, 0.2);
 }

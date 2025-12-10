@@ -20,7 +20,7 @@ function FloatingPaths({ position }: { position: number }) {
     return (
         <div className="absolute inset-0 pointer-events-none">
             <svg
-                className="w-full h-full text-[#000000] dark:text-white"
+                className="w-full h-full text-primary/30"
                 viewBox="0 0 696 316"
                 fill="none"
             >
@@ -58,7 +58,7 @@ interface BackgroundPathsProps {
 }
 
 export default function BackgroundPaths({
-  title = 'CORAH',
+  title = 'CLARIO',
   subtitle = 'ALWAYS ON. ALWAYS PROFESSIONAL.',
   onUserClick,
   onAdminClick,
@@ -66,7 +66,7 @@ export default function BackgroundPaths({
     const words = title.split(" ");
 
     return (
-        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#F8F6F2]">
+        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-gradient-radial from-primary via-secondary to-background">
             <div className="absolute inset-0">
                 <FloatingPaths position={1} />
                 <FloatingPaths position={-1} />
@@ -98,8 +98,7 @@ export default function BackgroundPaths({
                                             stiffness: 150,
                                             damping: 25,
                                         }}
-                                        className="inline-block text-transparent bg-clip-text
-                                        bg-gradient-to-r from-[#000000] to-[#2A2A2A]"
+                                        className="inline-block text-foreground"
                                     >
                                         {letter}
                                     </motion.span>
@@ -113,7 +112,7 @@ export default function BackgroundPaths({
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.8, duration: 0.8 }}
-                            className="text-sm sm:text-base md:text-lg text-[#2A2A2A] opacity-70 mb-16 tracking-widest uppercase"
+                            className="text-sm sm:text-base md:text-lg text-muted-foreground mb-16 tracking-widest uppercase"
                         >
                             {subtitle}
                         </motion.p>
@@ -125,12 +124,13 @@ export default function BackgroundPaths({
                         transition={{ delay: 1, duration: 0.8 }}
                         className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4"
                     >
-                        <div className="group relative bg-gradient-to-b from-black/10 to-white/10 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-auto">
+                        <div className="group relative bg-gradient-to-b from-primary/20 to-accent/20 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-auto">
                             <Button
                                 onClick={onUserClick}
                                 className="rounded-[1.15rem] px-8 sm:px-12 py-6 sm:py-8 text-lg sm:text-xl font-semibold backdrop-blur-md
-                                bg-white/95 hover:bg-white/100 text-black transition-all duration-300
-                                group-hover:-translate-y-0.5 border border-black/10 hover:shadow-md w-full sm:min-w-[200px]"
+                                bg-card/95 hover:bg-card text-foreground transition-all duration-300
+                                group-hover:-translate-y-0.5 border border-border hover:shadow-md w-full sm:min-w-[200px]
+                                hover:border-primary"
                             >
                                 <span className="opacity-90 group-hover:opacity-100 transition-opacity">
                                     User View
@@ -138,12 +138,13 @@ export default function BackgroundPaths({
                             </Button>
                         </div>
 
-                        <div className="group relative bg-gradient-to-b from-black/10 to-white/10 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-auto">
+                        <div className="group relative bg-gradient-to-b from-primary/20 to-accent/20 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-auto">
                             <Button
                                 onClick={onAdminClick}
                                 className="rounded-[1.15rem] px-8 sm:px-12 py-6 sm:py-8 text-lg sm:text-xl font-semibold backdrop-blur-md
-                                bg-white/95 hover:bg-white/100 text-black transition-all duration-300
-                                group-hover:-translate-y-0.5 border border-black/10 hover:shadow-md w-full sm:min-w-[200px]"
+                                bg-primary hover:bg-accent text-primary-foreground transition-all duration-300
+                                group-hover:-translate-y-0.5 border border-primary hover:shadow-md w-full sm:min-w-[200px]
+                                hover:border-accent"
                             >
                                 <span className="opacity-90 group-hover:opacity-100 transition-opacity">
                                     Admin View

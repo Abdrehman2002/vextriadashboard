@@ -19,7 +19,7 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
 
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('corah_role')
+      localStorage.removeItem('clario_role')
       router.push('/')
     }
   }
@@ -39,13 +39,13 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
     : baseNavItems
 
   return (
-    <div className="flex min-h-screen w-full bg-[#F8F6F2]">
+    <div className="flex min-h-screen w-full bg-background">
       {/* Mobile Menu Button */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-md shadow-lg border border-black/10"
+        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-card rounded-md shadow-lg border border-border"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           {mobileMenuOpen ? (
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           ) : (
@@ -67,36 +67,36 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
         className={cn(
           "sticky top-0 h-screen shrink-0 border-r transition-all duration-300 ease-in-out z-40",
           open ? 'w-64' : 'w-16',
-          "border-black/5 bg-white p-2 shadow-sm",
+          "border-border bg-card p-2 shadow-sm",
           // Mobile styles
           "fixed md:sticky",
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}
       >
         {/* Title Section */}
-        <div className="mb-6 border-b border-black/5 pb-4">
-          <div className="flex cursor-pointer items-center justify-between rounded-md p-2 transition-colors hover:bg-black/5">
+        <div className="mb-6 border-b border-border pb-4">
+          <div className="flex cursor-pointer items-center justify-between rounded-md p-2 transition-colors hover:bg-muted/20">
             <div className="flex items-center gap-3">
               <Logo />
               {open && (
                 <div className="transition-opacity duration-200">
-                  <span className="block text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#000000] to-[#2A2A2A]">
-                    CORAH
+                  <span className="block text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                    CLARIO
                   </span>
-                  <span className="block text-xs text-[#2A2A2A] opacity-70">
+                  <span className="block text-xs text-muted-foreground">
                     {mode === 'admin' ? 'Admin Panel' : 'User Panel'}
                   </span>
                 </div>
               )}
             </div>
             {open && (
-              <ChevronDown className="h-4 w-4 text-[#2A2A2A] opacity-50" />
+              <ChevronDown className="h-4 w-4 text-muted-foreground" />
             )}
           </div>
         </div>
 
         {/* Navigation Items */}
-        <div className="space-y-1 mb-8">
+        <div className="space-y-2 mb-8">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.path
@@ -109,12 +109,18 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
                 className={cn(
                   "relative flex h-11 w-full items-center rounded-md transition-all duration-200",
                   isActive
-                    ? "bg-[#000000] text-white shadow-sm border-l-2 border-[#000000]"
-                    : "text-[#2A2A2A] hover:bg-black/5 hover:text-[#000000]"
+                    ? "bg-gradient-to-r from-purple-500/20 to-purple-500/5 text-purple-300 shadow-sm border-l-4 border-purple-400"
+                    : "text-white/70 hover:bg-white/5 hover:text-purple-300"
                 )}
               >
-                <div className="grid h-full w-12 place-content-center">
-                  <Icon className="h-4 w-4" />
+                <div className={cn(
+                  "grid h-full place-content-center transition-all duration-200",
+                  open ? "w-10 ml-1" : "w-12"
+                )}>
+                  <Icon className={cn(
+                    "transition-all duration-200",
+                    isActive ? "h-5 w-5" : "h-4 w-4"
+                  )} />
                 </div>
                 {open && (
                   <span className="text-sm font-medium transition-opacity duration-200">
@@ -128,16 +134,16 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
 
         {/* Logout Section */}
         {open && (
-          <div className="border-t border-black/5 pt-4 space-y-1">
-            <div className="px-3 py-2 text-xs font-medium text-[#2A2A2A] opacity-70 uppercase tracking-wide">
+          <div className="border-t border-white/10 pt-4 space-y-1">
+            <div className="px-3 py-2 text-xs font-medium text-white/40 uppercase tracking-wide">
               Account
             </div>
             <button
               onClick={handleLogout}
-              className="relative flex h-11 w-full items-center rounded-md transition-all duration-200 text-[#2A2A2A] hover:bg-black/5 hover:text-[#000000]"
+              className="relative flex h-11 w-full items-center rounded-md transition-all duration-200 text-white/70 hover:bg-white/5 hover:text-red-400 group"
             >
               <div className="grid h-full w-12 place-content-center">
-                <LogOut className="h-4 w-4" />
+                <LogOut className="h-4 w-4 group-hover:scale-110 transition-transform" />
               </div>
               <span className="text-sm font-medium">Log Out</span>
             </button>
@@ -147,19 +153,19 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
         {/* Toggle Button - Hidden on mobile */}
         <button
           onClick={() => setOpen(!open)}
-          className="hidden md:block absolute bottom-0 left-0 right-0 border-t border-black/5 transition-colors hover:bg-black/5"
+          className="hidden md:block absolute bottom-0 left-0 right-0 border-t border-border transition-colors hover:bg-muted/20"
         >
           <div className="flex items-center p-3">
             <div className="grid size-10 place-content-center">
               <ChevronsRight
                 className={cn(
-                  "h-4 w-4 transition-transform duration-300 text-[#2A2A2A] opacity-70",
+                  "h-4 w-4 transition-transform duration-300 text-muted-foreground",
                   open && "rotate-180"
                 )}
               />
             </div>
             {open && (
-              <span className="text-sm font-medium text-[#2A2A2A] transition-opacity duration-200">
+              <span className="text-sm font-medium text-muted-foreground transition-opacity duration-200">
                 Hide
               </span>
             )}
@@ -179,18 +185,12 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
 
 const Logo = () => {
   return (
-    <div className="grid size-10 shrink-0 place-content-center rounded-lg bg-gradient-to-br from-[#000000] to-[#2A2A2A] shadow-sm">
-      <svg
-        width="20"
-        height="auto"
-        viewBox="0 0 50 39"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="fill-white"
-      >
-        <path d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z" />
-        <path d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z" />
-      </svg>
+    <div className="grid size-10 shrink-0 place-content-center rounded-lg bg-gradient-to-br from-primary to-secondary shadow-sm">
+      <img
+        src="/assets/favicon.svg"
+        alt="Clario Logo"
+        className="w-6 h-6"
+      />
     </div>
   )
 }

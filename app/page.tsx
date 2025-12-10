@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import BackgroundPaths from '@/components/ui/background-paths'
+import { BackgroundCircles } from '@/components/ui/background-circles'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -14,6 +14,7 @@ export default function Home() {
   const [selectedRole, setSelectedRole] = useState<'admin' | 'user'>('user')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   // Preload data when landing page mounts
   useEffect(() => {
@@ -36,24 +37,27 @@ export default function Home() {
     setShowPasswordDialog(true)
   }
 
-  const handlePasswordSubmit = (e: React.FormEvent) => {
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setIsLoading(true)
 
     const isAdmin = selectedRole === 'admin'
     const expectedPassword = isAdmin ? 'admin123' : 'user123'
 
     if (password === expectedPassword) {
-      localStorage.setItem('corah_role', selectedRole)
-      router.push(`/${selectedRole}/overview`)
+      localStorage.setItem('clario_role', selectedRole)
+      console.log('Navigating to:', `/${selectedRole}/overview`)
+      window.location.href = `/${selectedRole}/overview`
     } else {
       setError('Incorrect password')
+      setIsLoading(false)
     }
   }
 
   return (
     <>
-      <BackgroundPaths
+      <BackgroundCircles
         onUserClick={() => handleRoleClick('user')}
         onAdminClick={() => handleRoleClick('admin')}
       />
@@ -83,8 +87,8 @@ export default function Home() {
               {error && <p className="text-sm text-red-500">{error}</p>}
             </div>
 
-            <Button type="submit" className="w-full">
-              Continue
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? 'Loading...' : 'Continue'}
             </Button>
           </form>
         </DialogContent>

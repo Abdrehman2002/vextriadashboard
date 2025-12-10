@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import DashboardLayout from '@/components/dashboard/dashboard-layout'
 
 export default function AdminLayout({
@@ -9,14 +8,29 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  const router = useRouter()
+  const [isAuthorized, setIsAuthorized] = useState(false)
 
   useEffect(() => {
-    const role = localStorage.getItem('corah_role')
+    const role = localStorage.getItem('clario_role')
     if (role !== 'admin') {
-      router.push('/')
+      window.location.href = '/'
+    } else {
+      setIsAuthorized(true)
+
+      // Prefetch commonly accessed routes
+      const routes = ['/admin/overview', '/admin/data', '/admin/appointments', '/admin/business-info']
+      routes.forEach(route => {
+        const link = document.createElement('link')
+        link.rel = 'prefetch'
+        link.href = route
+        document.head.appendChild(link)
+      })
     }
-  }, [router])
+  }, [])
+
+  if (!isAuthorized) {
+    return null
+  }
 
   return <DashboardLayout mode="admin">{children}</DashboardLayout>
 }

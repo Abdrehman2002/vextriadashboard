@@ -21,7 +21,9 @@
       "Bash(curl:*)",
       "Bash(dir /s /b app lib components)",
       "Bash(npm install:*)",
-      "Bash(del nul)"
+      "Bash(del nul)",
+      "Bash(xargs -I {} sh -c 'echo \"\"\"\"=== {} ===\"\"\"\" && head -20 {}')",
+      "Bash(npm uninstall:*)"
     ],
     "deny": [],
     "ask": []
