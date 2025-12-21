@@ -15,6 +15,12 @@ export default function Home() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  // Animation mount effect
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Preload data when landing page mounts
   useEffect(() => {
@@ -58,21 +64,39 @@ export default function Home() {
   return (
     <>
       <NeonOrbs>
-        <div className="text-center max-w-3xl mx-auto px-4 w-full">
-          {/* Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight">
-            Clario AI
+        <div className="text-center max-w-4xl mx-auto px-4 w-full">
+          {/* Main Title - matching the screenshot */}
+          <h1
+            className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-[0.2em] mb-6 text-white transition-all duration-1000 ease-out ${
+              mounted
+                ? "opacity-100 translate-y-0 blur-0"
+                : "opacity-0 translate-y-8 blur-sm"
+            }`}
+            style={{ transitionDelay: "500ms" }}
+          >
+            {"BEYOND LIMITS".split("").map((char, i) => (
+              <span
+                key={i}
+                className={`inline-block transition-all duration-500 ${
+                  mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                }`}
+                style={{ transitionDelay: `${800 + i * 50}ms` }}
+              >
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
           </h1>
 
-          {/* Tagline */}
-          <p className="mt-4 text-sm sm:text-base md:text-lg font-medium uppercase tracking-[0.25em] text-indigo-100/80">
-            Beyond Limits
-          </p>
-
-          {/* Description */}
-          <p className="mt-6 text-base sm:text-lg text-gray-200/80 max-w-xl mx-auto">
-            Smart, always-on AI agents that book appointments, qualify leads, and keep
-            your business running while you focus on the work that matters.
+          {/* Subtitle */}
+          <p
+            className={`text-lg md:text-xl font-light tracking-widest text-white/60 mb-12 transition-all duration-1000 ease-out ${
+              mounted
+                ? "opacity-100 translate-y-0 blur-0"
+                : "opacity-0 translate-y-4 blur-sm"
+            }`}
+            style={{ transitionDelay: "1500ms" }}
+          >
+            THE FUTURE IS NOW
           </p>
 
           {/* Buttons */}

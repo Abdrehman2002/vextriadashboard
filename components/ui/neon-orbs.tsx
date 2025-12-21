@@ -14,7 +14,7 @@ export function NeonOrbs({ children }: NeonOrbsProps) {
   }, [])
 
   return (
-    <div className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-slate-100 dark:bg-[#050a18] transition-colors duration-500">
+    <div className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#050a18] transition-colors duration-500">
       {/* Top-left orb */}
       <div
         className={`absolute transition-all duration-1000 ease-out ${
