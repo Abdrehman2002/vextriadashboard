@@ -109,8 +109,8 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
                 className={cn(
                   "relative flex h-11 w-full items-center rounded-md transition-all duration-200",
                   isActive
-                    ? "bg-gradient-to-r from-purple-500/20 to-purple-500/5 text-purple-300 shadow-sm border-l-4 border-purple-400"
-                    : "text-white/70 hover:bg-white/5 hover:text-purple-300"
+                    ? "bg-gradient-to-r from-blue-500/20 to-blue-500/5 text-blue-300 shadow-sm border-l-4 border-blue-400"
+                    : "text-white/70 hover:bg-white/5 hover:text-blue-300"
                 )}
               >
                 <div className={cn(

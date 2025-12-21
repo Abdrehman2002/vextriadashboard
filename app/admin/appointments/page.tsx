@@ -232,7 +232,7 @@ export default function AdminAppointments() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-600 bg-clip-text text-transparent">
             Appointments Calendar
           </h1>
           <p className="text-sm text-gray-400 mt-1">
@@ -242,7 +242,7 @@ export default function AdminAppointments() {
         {activeTab === 'normal' && (
           <Button
             onClick={() => handleAddEvent()}
-            className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white border-0 shadow-lg shadow-purple-500/30"
+            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 shadow-lg shadow-blue-500/30"
           >
             <Plus className="h-4 w-4 mr-2" />
             Add Appointment
@@ -257,7 +257,7 @@ export default function AdminAppointments() {
           className={cn(
             "px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200",
             activeTab === 'normal'
-              ? 'bg-purple-600/30 text-purple-300 border-b-2 border-purple-500 shadow-sm'
+              ? 'bg-blue-600/30 text-blue-300 border-b-2 border-blue-500 shadow-sm'
               : 'text-gray-400 hover:text-white hover:bg-white/5'
           )}
         >
@@ -269,7 +269,7 @@ export default function AdminAppointments() {
           className={cn(
             "px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200",
             activeTab === 'google'
-              ? 'bg-purple-600/30 text-purple-300 border-b-2 border-purple-500 shadow-sm'
+              ? 'bg-blue-600/30 text-blue-300 border-b-2 border-blue-500 shadow-sm'
               : 'text-gray-400 hover:text-white hover:bg-white/5'
           )}
         >
@@ -312,7 +312,7 @@ export default function AdminAppointments() {
             <div className="grid grid-cols-7 gap-4">
               {/* Day Headers */}
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                <div key={day} className="text-center font-semibold text-xs uppercase tracking-wider text-purple-300 py-2">
+                <div key={day} className="text-center font-semibold text-xs uppercase tracking-wider text-blue-300 py-2">
                   {day}
                 </div>
               ))}
@@ -332,10 +332,10 @@ export default function AdminAppointments() {
                       day
                         ? cn(
                             "bg-[#120A24] border cursor-pointer",
-                            isSelected && "border-purple-500/50 bg-purple-500/10",
-                            !isSelected && hasEvents && "border-purple-500/30 hover:border-purple-500/50",
+                            isSelected && "border-blue-500/50 bg-blue-500/10",
+                            !isSelected && hasEvents && "border-blue-500/30 hover:border-blue-500/50",
                             !isSelected && !hasEvents && "border-white/5 hover:border-white/10",
-                            "hover:bg-white/5 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-purple-500/20"
+                            "hover:bg-white/5 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/20"
                           )
                         : 'bg-transparent'
                     )}
@@ -346,7 +346,7 @@ export default function AdminAppointments() {
                         <div className="flex items-start justify-between">
                           <span className="text-lg font-bold text-white">{day}</span>
                           {hasEvents && (
-                            <span className="px-2 py-0.5 bg-purple-500/20 text-purple-300 text-[10px] font-semibold rounded-full border border-purple-500/30">
+                            <span className="px-2 py-0.5 bg-blue-500/20 text-blue-300 text-[10px] font-semibold rounded-full border border-blue-500/30">
                               {dayEvents.length}
                             </span>
                           )}
@@ -371,15 +371,15 @@ export default function AdminAppointments() {
                                     e.stopPropagation()
                                     handleEditEvent(event)
                                   }}
-                                  className="group relative bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 hover:border-purple-500/40 rounded-lg p-2 cursor-pointer transition-all duration-200"
+                                  className="group relative bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 rounded-lg p-2 cursor-pointer transition-all duration-200"
                                 >
                                   <div className="flex items-start gap-1.5">
-                                    <Clock className="h-3 w-3 text-purple-400 mt-0.5 flex-shrink-0" />
+                                    <Clock className="h-3 w-3 text-blue-400 mt-0.5 flex-shrink-0" />
                                     <div className="flex-1 min-w-0">
                                       <p className="text-xs font-medium text-white truncate">
                                         {event.title}
                                       </p>
-                                      <p className="text-[10px] text-purple-300/70 mt-0.5">
+                                      <p className="text-[10px] text-blue-300/70 mt-0.5">
                                         {startTime}
                                       </p>
                                     </div>
@@ -527,7 +527,7 @@ export default function AdminAppointments() {
               </Button>
               <Button
                 type="submit"
-                className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white border-0"
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0"
               >
                 {selectedEvent ? 'Update' : 'Create'}
               </Button>

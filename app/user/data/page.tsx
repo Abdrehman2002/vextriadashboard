@@ -70,7 +70,7 @@ export default function UserData() {
       {/* Header with Toolbar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
             Appointments & Bookings
           </h1>
           <p className="text-sm text-gray-400 mt-1">View all appointment data · Read-only</p>
@@ -94,7 +94,7 @@ export default function UserData() {
           onClick={() => setActiveTab('normal')}
           className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
             activeTab === 'normal'
-              ? 'bg-purple-600/30 text-purple-300 border-b-2 border-purple-500 shadow-sm'
+              ? 'bg-blue-600/30 text-blue-300 border-b-2 border-blue-500 shadow-sm'
               : 'text-gray-400 hover:text-white hover:bg-white/5'
           }`}
         >
@@ -104,7 +104,7 @@ export default function UserData() {
           onClick={() => setActiveTab('sheets')}
           className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
             activeTab === 'sheets'
-              ? 'bg-purple-600/30 text-purple-300 border-b-2 border-purple-500 shadow-sm'
+              ? 'bg-blue-600/30 text-blue-300 border-b-2 border-blue-500 shadow-sm'
               : 'text-gray-400 hover:text-white hover:bg-white/5'
           }`}
         >
@@ -120,7 +120,7 @@ export default function UserData() {
                 <thead>
                   <tr className="border-b border-white/10 bg-[#120A24]">
                     {headers.map((header) => (
-                      <th key={header} className="text-left py-3 px-6 text-[11px] uppercase tracking-wider text-purple-300 font-semibold">
+                      <th key={header} className="text-left py-3 px-6 text-[11px] uppercase tracking-wider text-blue-300 font-semibold">
                         {formatHeaderName(header)}
                       </th>
                     ))}
@@ -157,7 +157,7 @@ export default function UserData() {
                       >
                         <td className="py-4 px-6">
                           <div className="flex items-center gap-2 text-sm text-gray-300">
-                            <Calendar className="h-3.5 w-3.5 text-purple-400" />
+                            <Calendar className="h-3.5 w-3.5 text-blue-400" />
                             {row.dateBooked || <span className="text-gray-600">-</span>}
                           </div>
                         </td>
@@ -178,7 +178,7 @@ export default function UserData() {
                         </td>
                         <td className="py-4 px-6">
                           <div className="flex items-center gap-2">
-                            <User className="h-3.5 w-3.5 text-purple-400" />
+                            <User className="h-3.5 w-3.5 text-blue-400" />
                             <span className="text-sm font-semibold text-white">{row.callerName || <span className="text-gray-600">-</span>}</span>
                           </div>
                         </td>
@@ -257,7 +257,7 @@ export default function UserData() {
                         onClick={() => setCurrentPage(page)}
                         className={`px-3 py-1 rounded text-sm font-medium transition-all ${
                           currentPage === page
-                            ? 'bg-purple-600 text-white'
+                            ? 'bg-blue-600 text-white'
                             : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                         }`}
                       >

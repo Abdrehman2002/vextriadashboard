@@ -218,7 +218,7 @@ export default function AgentSelectorPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col gap-3 pb-6 border-b border-white/10">
-        <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent">
+        <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-600 bg-clip-text text-transparent">
           Agent Selector
         </h1>
         <p className="text-sm text-gray-300">
@@ -255,7 +255,7 @@ export default function AgentSelectorPage() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
                 {/* Clario Logo Circle */}
-                <div className="h-16 w-16 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg p-3">
+                <div className="h-16 w-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg p-3">
                   <img
                     src="/assets/favicon.svg"
                     alt="Clario Logo"
@@ -375,9 +375,9 @@ export default function AgentSelectorPage() {
                 'bg-white/5 backdrop-blur-md border rounded-2xl p-6',
                 'shadow-[0_0_20px_rgba(0,0,0,0.4)]',
                 'hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]',
-                isSelected && !isActive && 'border-purple-500/50 bg-purple-500/10 shadow-[0_0_30px_rgba(168,85,247,0.4)]',
+                isSelected && !isActive && 'border-blue-500/50 bg-blue-500/10 shadow-[0_0_30px_rgba(168,85,247,0.4)]',
                 isActive && 'border-emerald-500/50 bg-emerald-500/10 shadow-[0_0_30px_rgba(16,185,129,0.4)]',
-                !isSelected && !isActive && 'border-white/10 hover:border-purple-500/30'
+                !isSelected && !isActive && 'border-white/10 hover:border-blue-500/30'
               )}
               onClick={() => !isCallActive && setSelectedAgentId(agent.agentId)}
             >
@@ -389,7 +389,7 @@ export default function AgentSelectorPage() {
                 </div>
               )}
               {isSelected && !isActive && (
-                <div className="absolute -top-3 -right-3 h-8 w-8 rounded-full bg-purple-600 flex items-center justify-center shadow-lg">
+                <div className="absolute -top-3 -right-3 h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center shadow-lg">
                   <CheckCircle className="h-5 w-5 text-white" />
                 </div>
               )}
@@ -399,11 +399,11 @@ export default function AgentSelectorPage() {
                 <div className="flex items-start justify-between">
                   <div className={cn(
                     "p-3 rounded-xl transition-colors",
-                    isActive ? "bg-emerald-500/20" : isSelected ? "bg-purple-500/20" : "bg-white/10"
+                    isActive ? "bg-emerald-500/20" : isSelected ? "bg-blue-500/20" : "bg-white/10"
                   )}>
                     <Phone className={cn(
                       "h-5 w-5",
-                      isActive ? "text-emerald-300" : isSelected ? "text-purple-300" : "text-gray-400"
+                      isActive ? "text-emerald-300" : isSelected ? "text-blue-300" : "text-gray-400"
                     )} />
                   </div>
                 </div>
@@ -473,7 +473,7 @@ export default function AgentSelectorPage() {
           <Button
             onClick={handleSaveActiveAgent}
             disabled={!selectedAgentId || isSaving || isCallActive}
-            className="flex-1 sm:flex-none min-w-[180px] h-11 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white border-0 shadow-lg shadow-purple-500/30 disabled:opacity-30"
+            className="flex-1 sm:flex-none min-w-[180px] h-11 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 shadow-lg shadow-blue-500/30 disabled:opacity-30"
           >
             {isSaving ? (
               <>

@@ -14,7 +14,7 @@ export function NeonOrbs({ children }: NeonOrbsProps) {
   }, [])
 
   return (
-    <div className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#050a18] transition-colors duration-500">
+    <div className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#050a18] transition-colors duration-500 dark">
       {/* Top-left orb */}
       <div
         className={`absolute transition-all duration-1000 ease-out ${
@@ -100,8 +100,46 @@ export function NeonOrbs({ children }: NeonOrbsProps) {
         </div>
       </div>
 
-      {/* Content overlay */}
-      {children && <div className="relative z-10 w-full h-full flex items-center justify-center">{children}</div>}
+      {/* Center text */}
+      <div className="relative z-10 text-center text-indigo-900 dark:text-white transition-colors duration-500">
+        <h1
+          className={`text-4xl md:text-7xl font-extralight tracking-[0.2em] mb-4 transition-all duration-1000 ease-out ${
+            mounted
+              ? "opacity-100 translate-y-0 blur-0"
+              : "opacity-0 translate-y-8 blur-sm"
+          }`}
+          style={{ transitionDelay: "500ms" }}
+        >
+          {"CLARIO AI".split("").map((char, i) => (
+            <span
+              key={i}
+              className={`inline-block transition-all duration-500 ${
+                mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+              style={{ transitionDelay: `${800 + i * 50}ms` }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </span>
+          ))}
+        </h1>
+        <p
+          className={`text-lg md:text-xl font-light tracking-widest text-blue-400/60 transition-all duration-1000 ease-out ${
+            mounted
+              ? "opacity-100 translate-y-0 blur-0"
+              : "opacity-0 translate-y-4 blur-sm"
+          }`}
+          style={{ transitionDelay: "1500ms" }}
+        >
+          BEYOND LIMITS
+        </p>
+
+        {/* Buttons slot */}
+        {children && (
+          <div className="mt-8">
+            {children}
+          </div>
+        )}
+      </div>
 
       <style jsx global>{`
         .beam-container {

@@ -4,42 +4,42 @@
 
 @layer base {
   :root {
-    /* Background Colors - Dark purple/black theme */
-    --background: 260 85% 3%;  /* #05030B */
+    /* Background Colors - Dark blue/black theme */
+    --background: 220 85% 5%;  /* #050a18 */
     --foreground: 0 0% 100%;  /* #FFFFFF */
 
     /* Card/Panel Colors */
-    --card: 260 75% 5%;  /* #0B0715 */
+    --card: 220 75% 8%;  /* #0a1429 */
     --card-foreground: 0 0% 100%;  /* #FFFFFF */
 
     /* Popover Colors */
-    --popover: 260 75% 5%;  /* #0B0715 */
+    --popover: 220 75% 8%;  /* #0a1429 */
     --popover-foreground: 0 0% 100%;  /* #FFFFFF */
 
-    /* Primary Colors - Bright Purple */
-    --primary: 270 75% 62%;  /* #A855F7 */
+    /* Primary Colors - Bright Blue */
+    --primary: 217 91% 60%;  /* #3B82F6 */
     --primary-foreground: 0 0% 100%;  /* #FFFFFF */
 
     /* Secondary Colors */
-    --secondary: 270 70% 35%;  /* #4C1D95 */
+    --secondary: 217 70% 35%;  /* #1e3a8a */
     --secondary-foreground: 0 0% 100%;  /* #FFFFFF */
 
     /* Muted Colors */
     --muted: 220 13% 30%;  /* #4B5563 */
     --muted-foreground: 220 13% 82%;  /* #D1D5DB */
 
-    /* Accent Colors - Light Purple */
-    --accent: 270 75% 75%;  /* #C084FC */
-    --accent-foreground: 260 85% 3%;  /* #05030B */
+    /* Accent Colors - Light Blue */
+    --accent: 217 91% 75%;  /* #96c8ff */
+    --accent-foreground: 220 85% 5%;  /* #050a18 */
 
     /* Destructive Colors */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     /* Border & Input */
-    --border: 210 16% 16%;  /* #1F2933 */
-    --input: 210 16% 16%;  /* #1F2933 */
-    --ring: 270 75% 62%;  /* #A855F7 */
+    --border: 217 30% 20%;  /* #1a2d4d */
+    --input: 217 30% 20%;  /* #1a2d4d */
+    --ring: 217 91% 60%;  /* #3B82F6 */
 
     --radius: 0.5rem;
   }
@@ -65,12 +65,12 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(168, 85, 247, 0.5);
+  background: rgba(59, 130, 246, 0.5);
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.7);
+  background: rgba(59, 130, 246, 0.7);
 }
 
 /* Glassmorphism effect */
@@ -121,4 +121,20 @@
 
 .recharts-cartesian-axis-line {
   stroke: rgba(255, 255, 255, 0.2);
+}
+
+/* Fade-in animation for buttons */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
 }

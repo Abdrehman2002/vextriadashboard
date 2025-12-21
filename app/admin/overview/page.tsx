@@ -109,7 +109,7 @@ export default function AdminOverview() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
             Dashboard Overview
           </h1>
           <p className="text-sm text-gray-400 mt-1">
@@ -135,17 +135,17 @@ export default function AdminOverview() {
         <h2 className="text-lg font-semibold text-white mb-4">Highlights</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Total Calls */}
-          <div className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-2xl hover:shadow-purple-500/30 hover:border-purple-500/30 hover:-translate-y-1 transition-all duration-300">
+          <div className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-2xl hover:shadow-blue-500/30 hover:border-blue-500/30 hover:-translate-y-1 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-purple-500/30 rounded-xl border border-purple-400/30">
-                <Phone className="h-5 w-5 text-purple-300" />
+              <div className="p-3 bg-blue-500/30 rounded-xl border border-blue-400/30">
+                <Phone className="h-5 w-5 text-blue-300" />
               </div>
               <TrendingUp className="h-4 w-4 text-green-400 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <div className="space-y-1">
               <p className="text-xs font-medium text-gray-400">Total Calls</p>
               <h3 className="text-3xl font-bold text-white">{metrics?.totalCalls || 0}</h3>
-              <p className="text-xs text-purple-300/70">Every call captured</p>
+              <p className="text-xs text-blue-300/70">Every call captured</p>
             </div>
           </div>
 
@@ -206,7 +206,7 @@ export default function AdminOverview() {
         <h2 className="text-lg font-semibold text-white mb-4">Trends</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Calls Trend */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300">
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
             <div className="mb-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-white">Call Activity</h3>
@@ -219,7 +219,7 @@ export default function AdminOverview() {
               data={callTrend}
               index="date"
               categories={['Calls']}
-              colors={['violet']}
+              colors={['blue']}
               valueFormatter={(value) => `${value} calls`}
               showLegend={false}
               showGridLines={true}
@@ -249,7 +249,7 @@ export default function AdminOverview() {
           </div>
 
           {/* Appointment Distribution */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300">
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
             <div className="mb-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-white">Call Distribution</h3>
@@ -290,7 +290,7 @@ export default function AdminOverview() {
                 <h3 className="text-lg font-semibold text-white">Upcoming Events</h3>
                 <span className="text-xs text-gray-400">{calendarSummary?.upcomingCount || 0} scheduled</span>
               </div>
-              <p className="text-xs text-purple-300/70 mt-1">Your booked appointments</p>
+              <p className="text-xs text-blue-300/70 mt-1">Your booked appointments</p>
             </div>
             <div className="space-y-3 max-h-72 overflow-y-auto custom-scrollbar">
               {calendarSummary?.upcomingEvents && calendarSummary.upcomingEvents.length > 0 ? (
@@ -299,8 +299,8 @@ export default function AdminOverview() {
                     key={event.title + event.start}
                     className="flex items-start gap-3 p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all duration-200"
                   >
-                    <div className="p-2 bg-purple-500/20 rounded-lg">
-                      <Calendar className="h-4 w-4 text-purple-300" />
+                    <div className="p-2 bg-blue-500/20 rounded-lg">
+                      <Calendar className="h-4 w-4 text-blue-300" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-sm text-white truncate">{event.title}</p>
