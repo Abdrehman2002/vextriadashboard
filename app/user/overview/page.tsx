@@ -89,15 +89,18 @@ export default function UserOverview() {
   const callTrend = metrics?.callsPerDay?.map(d => ({ date: d.date, Calls: d.calls })) || []
   const revenueTrend = metrics?.revenuePerDay?.map(d => ({ date: d.date, Revenue: d.revenue })) || []
 
+  const totalInquiries = Math.max(0, (metrics?.answeredCalls || 0) - (metrics?.upcomingAppointments || 0))
+  const totalRevenueGenerated = (metrics?.upcomingAppointments || 0) * 300
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
             Dashboard Overview
           </h1>
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-xs text-gray-400 mt-1">
             Last 30 days · {metrics?.totalCalls || 0} calls · {metrics?.totalCalls ? Math.round((metrics.answeredCalls / metrics.totalCalls) * 100) : 0}% answer rate · Read-only
           </p>
         </div>
@@ -113,70 +116,67 @@ export default function UserOverview() {
 
       {/* Highlights Section */}
       <div>
-        <h2 className="text-lg font-semibold text-white mb-4">Highlights</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <h2 className="text-base font-semibold text-white mb-3">Highlights</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Total Calls */}
-          <div className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-2xl hover:shadow-blue-500/30 hover:border-blue-500/30 hover:-translate-y-1 transition-all duration-300">
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-blue-500/30 rounded-xl border border-blue-400/30">
-                <Phone className="h-5 w-5 text-blue-300" />
+          <div className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:shadow-xl hover:shadow-blue-500/30 hover:border-blue-500/30 hover:-translate-y-0.5 transition-all duration-300">
+            <div className="flex items-start justify-between mb-3">
+              <div className="p-2 bg-blue-500/30 rounded-lg border border-blue-400/30">
+                <Phone className="h-4 w-4 text-blue-300" />
               </div>
-              <TrendingUp className="h-4 w-4 text-green-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <TrendingUp className="h-3 w-3 text-green-400 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               <p className="text-xs font-medium text-gray-400">Total Calls</p>
-              <h3 className="text-3xl font-bold text-white">{metrics?.totalCalls || 0}</h3>
+              <h3 className="text-2xl font-bold text-white">{metrics?.totalCalls || 0}</h3>
               <p className="text-xs text-blue-300/70">Every call captured</p>
             </div>
           </div>
 
-          {/* Answered Calls */}
-          <div className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-2xl hover:shadow-blue-500/30 hover:border-blue-500/30 hover:-translate-y-1 transition-all duration-300">
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-blue-500/30 rounded-xl border border-blue-400/30">
-                <CheckCircle className="h-5 w-5 text-blue-300" />
+          {/* Number of Inquiries */}
+          <div className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:shadow-xl hover:shadow-purple-500/30 hover:border-purple-500/30 hover:-translate-y-0.5 transition-all duration-300">
+            <div className="flex items-start justify-between mb-3">
+              <div className="p-2 bg-purple-500/30 rounded-lg border border-purple-400/30">
+                <Users className="h-4 w-4 text-purple-300" />
               </div>
-              <Activity className="h-4 w-4 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Activity className="h-3 w-3 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <div className="space-y-1">
-              <p className="text-xs font-medium text-gray-400">Answered Calls</p>
-              <h3 className="text-3xl font-bold text-white">{metrics?.answeredCalls || 0}</h3>
-              <p className="text-xs text-blue-300/70">
-                {metrics?.totalCalls ? `${((metrics.answeredCalls / metrics.totalCalls) * 100).toFixed(1)}% answer rate` : '0% answer rate'}
-              </p>
+            <div className="space-y-0.5">
+              <p className="text-xs font-medium text-gray-400">Inquiries</p>
+              <h3 className="text-2xl font-bold text-white">{totalInquiries}</h3>
+              <p className="text-xs text-purple-300/70">Questions answered</p>
             </div>
           </div>
 
-          {/* Revenue Saved */}
-          <div className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-2xl hover:shadow-emerald-500/30 hover:border-emerald-500/30 hover:-translate-y-1 transition-all duration-300">
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-emerald-500/30 rounded-xl border border-emerald-400/30">
-                <DollarSign className="h-5 w-5 text-emerald-300" />
+          {/* Number of Bookings */}
+          <div className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:shadow-xl hover:shadow-cyan-500/30 hover:border-cyan-500/30 hover:-translate-y-0.5 transition-all duration-300">
+            <div className="flex items-start justify-between mb-3">
+              <div className="p-2 bg-cyan-500/30 rounded-lg border border-cyan-400/30">
+                <Calendar className="h-4 w-4 text-cyan-300" />
               </div>
-              <TrendingUp className="h-4 w-4 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <CheckCircle className="h-3 w-3 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <div className="space-y-1">
-              <p className="text-xs font-medium text-gray-400">Revenue Saved</p>
-              <h3 className="text-3xl font-bold text-white">
-                {currencyFormatter.format(metrics?.totalRevenueSaved || 0)}
-              </h3>
-              <p className="text-xs text-emerald-300/70">From {metrics?.upcomingAppointments || 0} booked appointments</p>
+            <div className="space-y-0.5">
+              <p className="text-xs font-medium text-gray-400">Bookings</p>
+              <h3 className="text-2xl font-bold text-white">{metrics?.upcomingAppointments || 0}</h3>
+              <p className="text-xs text-cyan-300/70">Appointments scheduled</p>
             </div>
           </div>
 
-          {/* Missed Revenue */}
-          <div className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-2xl hover:shadow-amber-500/30 hover:border-amber-500/30 hover:-translate-y-1 transition-all duration-300">
-            <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-amber-500/30 rounded-xl border border-amber-400/30">
-                <Users className="h-5 w-5 text-amber-300" />
+          {/* Total Revenue Made */}
+          <div className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:shadow-xl hover:shadow-emerald-500/30 hover:border-emerald-500/30 hover:-translate-y-0.5 transition-all duration-300">
+            <div className="flex items-start justify-between mb-3">
+              <div className="p-2 bg-emerald-500/30 rounded-lg border border-emerald-400/30">
+                <DollarSign className="h-4 w-4 text-emerald-300" />
               </div>
+              <TrendingUp className="h-3 w-3 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <div className="space-y-1">
-              <p className="text-xs font-medium text-gray-400">Missed Revenue</p>
-              <h3 className="text-3xl font-bold text-white">
-                {currencyFormatter.format(metrics?.missedRevenueSaved || 0)}
+            <div className="space-y-0.5">
+              <p className="text-xs font-medium text-gray-400">Total Revenue</p>
+              <h3 className="text-2xl font-bold text-white">
+                {currencyFormatter.format(totalRevenueGenerated)}
               </h3>
-              <p className="text-xs text-amber-300/70">Opportunities to capture</p>
+              <p className="text-xs text-emerald-300/70">{metrics?.upcomingAppointments || 0} × $300</p>
             </div>
           </div>
         </div>
@@ -184,19 +184,19 @@ export default function UserOverview() {
 
       {/* Trends Section */}
       <div>
-        <h2 className="text-lg font-semibold text-white mb-4">Trends</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <h2 className="text-base font-semibold text-white mb-3">Trends</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {/* Calls Trend */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
-            <div className="mb-6">
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+            <div className="mb-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Call Activity</h3>
+                <h3 className="text-sm font-semibold text-white">Call Activity</h3>
                 <span className="text-xs text-gray-400">Last 30 days</span>
               </div>
-              <p className="text-xs text-emerald-400 mt-1">↑ Up 12% vs previous period</p>
+              <p className="text-xs text-emerald-400 mt-0.5">↑ Up 12% vs previous period</p>
             </div>
             <AreaChart
-              className="h-72"
+              className="h-40"
               data={callTrend}
               index="date"
               categories={['Calls']}
@@ -209,16 +209,16 @@ export default function UserOverview() {
           </div>
 
           {/* Revenue Trend */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300">
-            <div className="mb-6">
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300">
+            <div className="mb-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Revenue Generated</h3>
+                <h3 className="text-sm font-semibold text-white">Revenue Generated</h3>
                 <span className="text-xs text-gray-400">Last 30 days</span>
               </div>
-              <p className="text-xs text-emerald-400 mt-1">↑ Up 8% vs previous period</p>
+              <p className="text-xs text-emerald-400 mt-0.5">↑ Up 8% vs previous period</p>
             </div>
             <BarChart
-              className="h-72"
+              className="h-40"
               data={revenueTrend}
               index="date"
               categories={['Revenue']}
@@ -230,20 +230,20 @@ export default function UserOverview() {
           </div>
 
           {/* Appointment Distribution */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
-            <div className="mb-6">
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+            <div className="mb-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Call Distribution</h3>
+                <h3 className="text-sm font-semibold text-white">Call Distribution</h3>
                 <span className="text-xs text-gray-400">Last 30 days</span>
               </div>
-              <p className="text-xs text-emerald-400 mt-1">
+              <p className="text-xs text-emerald-400 mt-0.5">
                 {metrics?.upcomingAppointments && metrics?.answeredCalls
                   ? `${((metrics.upcomingAppointments / metrics.answeredCalls) * 100).toFixed(1)}% conversion to bookings`
                   : '0% conversion'}
               </p>
             </div>
             <DonutChart
-              className="h-72"
+              className="h-40"
               data={pieData}
               category="value"
               index="name"
@@ -252,40 +252,40 @@ export default function UserOverview() {
               showLabel={true}
               showAnimation={true}
             />
-            <div className="mt-6 flex items-center justify-center gap-6">
-              <div className="flex items-center gap-2">
-                <div className="h-3 w-3 rounded-full bg-emerald-500"></div>
-                <span className="text-sm text-white/70">Booked: {metrics?.upcomingAppointments || 0}</span>
+            <div className="mt-3 flex items-center justify-center gap-4">
+              <div className="flex items-center gap-1.5">
+                <div className="h-2.5 w-2.5 rounded-full bg-emerald-500"></div>
+                <span className="text-xs text-white/70">Booked: {metrics?.upcomingAppointments || 0}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="h-3 w-3 rounded-full bg-rose-500"></div>
-                <span className="text-sm text-white/70">Inquiries: {Math.max(0, (metrics?.answeredCalls || 0) - (metrics?.upcomingAppointments || 0))}</span>
+              <div className="flex items-center gap-1.5">
+                <div className="h-2.5 w-2.5 rounded-full bg-rose-500"></div>
+                <span className="text-xs text-white/70">Inquiries: {totalInquiries}</span>
               </div>
             </div>
           </div>
 
           {/* Upcoming Events */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300">
-            <div className="mb-6">
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300">
+            <div className="mb-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Upcoming Events</h3>
+                <h3 className="text-sm font-semibold text-white">Upcoming Events</h3>
                 <span className="text-xs text-gray-400">{calendarSummary?.upcomingCount || 0} scheduled</span>
               </div>
-              <p className="text-xs text-blue-300/70 mt-1">Your booked appointments</p>
+              <p className="text-xs text-blue-300/70 mt-0.5">Your booked appointments</p>
             </div>
-            <div className="space-y-3 max-h-72 overflow-y-auto custom-scrollbar">
+            <div className="space-y-2 max-h-40 overflow-y-auto custom-scrollbar">
               {calendarSummary?.upcomingEvents && calendarSummary.upcomingEvents.length > 0 ? (
                 calendarSummary.upcomingEvents.map((event, idx) => (
                   <div
                     key={event.title + event.start}
-                    className="flex items-start gap-3 p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all duration-200"
+                    className="flex items-start gap-2 p-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-200"
                   >
-                    <div className="p-2 bg-blue-500/20 rounded-lg">
-                      <Calendar className="h-4 w-4 text-blue-300" />
+                    <div className="p-1.5 bg-blue-500/20 rounded-md">
+                      <Calendar className="h-3 w-3 text-blue-300" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm text-white truncate">{event.title}</p>
-                      <p className="text-xs text-white/50 mt-1">
+                      <p className="font-medium text-xs text-white truncate">{event.title}</p>
+                      <p className="text-xs text-white/50 mt-0.5">
                         {new Date(event.start).toLocaleString('en-US', {
                           month: 'short',
                           day: 'numeric',
@@ -297,9 +297,9 @@ export default function UserOverview() {
                   </div>
                 ))
               ) : (
-                <div className="text-center py-12">
-                  <Calendar className="h-12 w-12 text-white/20 mx-auto mb-3" />
-                  <p className="text-sm text-white/40">No upcoming events</p>
+                <div className="text-center py-8">
+                  <Calendar className="h-8 w-8 text-white/20 mx-auto mb-2" />
+                  <p className="text-xs text-white/40">No upcoming events</p>
                 </div>
               )}
             </div>
