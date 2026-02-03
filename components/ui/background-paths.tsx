@@ -58,7 +58,7 @@ interface BackgroundPathsProps {
 }
 
 export default function BackgroundPaths({
-  title = 'CLARIO',
+  title = 'VEXTRIA',
   subtitle = 'ALWAYS ON. ALWAYS PROFESSIONAL.',
   onUserClick,
   onAdminClick,

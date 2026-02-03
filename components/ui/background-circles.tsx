@@ -12,7 +12,7 @@ interface BackgroundCirclesProps {
 }
 
 export function BackgroundCircles({
-    title = "Clario AI",
+    title = "Vextria AI",
     description = "Beyond Limits",
     className,
     onUserClick,

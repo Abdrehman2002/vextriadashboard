@@ -5,7 +5,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "CLARIO Dashboard",
+  title: "VEXTRIA Dashboard",
   description: "AI calling & booking control panel",
   icons: {
     icon: '/assets/favicon.svg',

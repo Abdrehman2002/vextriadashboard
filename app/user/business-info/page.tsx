@@ -16,21 +16,21 @@ interface BusinessInfo {
 }
 
 const defaultInfo: BusinessInfo = {
-  name: 'CLARIO',
+  name: 'VEXTRIA',
   industry: 'AI Calling & Booking Services',
   location: 'United States',
   phone: '+1 (956) 305-4194',
-  email: 'clarioai1@gmail.com',
-  website: 'https://clarioai.site',
+  email: 'vextriaai@gmail.com',
+  website: 'https://vextriaai.site',
   timezone: 'America/Chicago',
-  description: 'Always on. Always professional. CLARIO provides AI-powered calling and booking solutions for businesses.',
+  description: 'Always on. Always professional. VEXTRIA provides AI-powered calling and booking solutions for businesses.',
 }
 
 export default function UserBusinessInfo() {
   const [info, setInfo] = useState<BusinessInfo>(defaultInfo)
 
   useEffect(() => {
-    const saved = localStorage.getItem('clario_business_info')
+    const saved = localStorage.getItem('vextria_business_info')
     if (saved) {
       setInfo(JSON.parse(saved))
     }
@@ -53,7 +53,7 @@ export default function UserBusinessInfo() {
           <div className="flex items-start mb-8">
             <Image
               src="/assets/favicon.svg"
-              alt="CLARIO Logo"
+              alt="VEXTRIA Logo"
               width={120}
               height={120}
               className="rounded-lg"

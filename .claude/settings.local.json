@@ -23,7 +23,8 @@
       "Bash(npm install:*)",
       "Bash(del nul)",
       "Bash(xargs -I {} sh -c 'echo \"\"\"\"=== {} ===\"\"\"\" && head -20 {}')",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(git remote set-url:*)"
     ],
     "deny": [],
     "ask": []
