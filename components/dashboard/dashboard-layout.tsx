@@ -19,7 +19,7 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
 
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('clario_role')
+      localStorage.removeItem('vextria_role')
       router.push('/')
     }
   }
@@ -81,7 +81,7 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
               {open && (
                 <div className="transition-opacity duration-200">
                   <span className="block text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-                    CLARIO
+                    VEXTRIA
                   </span>
                   <span className="block text-xs text-muted-foreground">
                     {mode === 'admin' ? 'Admin Panel' : 'User Panel'}
@@ -188,7 +188,7 @@ const Logo = () => {
     <div className="grid size-10 shrink-0 place-content-center rounded-lg bg-gradient-to-br from-primary to-secondary shadow-sm">
       <img
         src="/assets/favicon.svg"
-        alt="Clario Logo"
+        alt="Vextria Logo"
         className="w-6 h-6"
       />
     </div>

@@ -46,7 +46,7 @@ export default function Home() {
     const expectedPassword = isAdmin ? 'admin123' : 'user123'
 
     if (password === expectedPassword) {
-      localStorage.setItem('clario_role', selectedRole)
+      localStorage.setItem('vextria_role', selectedRole)
       console.log('Navigating to:', `/${selectedRole}/overview`)
       window.location.href = `/${selectedRole}/overview`
     } else {

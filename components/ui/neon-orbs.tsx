@@ -110,7 +110,7 @@ export function NeonOrbs({ children }: NeonOrbsProps) {
           }`}
           style={{ transitionDelay: "500ms" }}
         >
-          {"CLARIO AI".split("").map((char, i) => (
+          {"VEXTRIA AI".split("").map((char, i) => (
             <span
               key={i}
               className={`inline-block transition-all duration-500 ${

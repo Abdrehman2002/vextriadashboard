@@ -258,13 +258,13 @@ export default function AgentSelectorPage() {
                 <div className="h-16 w-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg p-3">
                   <img
                     src="/assets/favicon.svg"
-                    alt="Clario Logo"
+                    alt="Vextria Logo"
                     className="w-full h-full"
                   />
                 </div>
                 <div>
                   <p className="text-xs text-gray-400 uppercase tracking-wide">Speaking with</p>
-                  <h2 className="text-xl font-bold">Clario AI</h2>
+                  <h2 className="text-xl font-bold">Vextria AI</h2>
                   <p className="text-sm text-gray-400">{selectedAgent?.name || 'Agent'}</p>
                 </div>
               </div>
@@ -302,7 +302,7 @@ export default function AgentSelectorPage() {
                 isAgentSpeaking ? "bg-green-400 animate-pulse" : "bg-gray-500"
               )} />
               <span className="text-sm">
-                {isAgentSpeaking ? 'Clario is speaking...' : 'Listening...'}
+                {isAgentSpeaking ? 'Vextria is speaking...' : 'Listening...'}
               </span>
             </div>
 
@@ -337,7 +337,7 @@ export default function AgentSelectorPage() {
                 </div>
                 <div className="p-3 bg-[#F8F6F2] rounded-md">
                   <p className="text-xs text-muted-foreground mb-1">Powered by</p>
-                  <p className="font-bold">Clario</p>
+                  <p className="font-bold">Vextria</p>
                 </div>
               </div>
             )}
