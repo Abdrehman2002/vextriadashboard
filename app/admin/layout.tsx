@@ -11,7 +11,7 @@ export default function AdminLayout({
   const [isAuthorized, setIsAuthorized] = useState(false)
 
   useEffect(() => {
-    const role = localStorage.getItem('clario_role')
+    const role = localStorage.getItem('vextria_role')
     if (role !== 'admin') {
       window.location.href = '/'
     } else {
