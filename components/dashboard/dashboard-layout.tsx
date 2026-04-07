@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Database, Calendar, Building, LogOut, ChevronsRight, ChevronDown, Headset } from 'lucide-react'
+import { LayoutDashboard, Database, Calendar, Building, LogOut, ChevronsRight, ChevronDown, Headset, AlertCircle, ShieldCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface DashboardLayoutProps {
@@ -30,12 +30,16 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
     { label: 'Overview', path: `${basePath}/overview`, icon: LayoutDashboard },
     { label: 'Data', path: `${basePath}/data`, icon: Database },
     { label: 'Appointments', path: `${basePath}/appointments`, icon: Calendar },
+    { label: 'Complaints', path: `${basePath}/complaints`, icon: AlertCircle },
     { label: 'Business Info', path: `${basePath}/business-info`, icon: Building },
   ]
 
-  // Add Agent Selector only for admin
+  // Add Agent Selector and EFU Leads only for admin
   const navItems = mode === 'admin'
-    ? [...baseNavItems, { label: 'Agent Selector', path: `${basePath}/agent-selector`, icon: Headset }]
+    ? [...baseNavItems,
+        { label: 'Agent Selector', path: `${basePath}/agent-selector`, icon: Headset },
+        { label: 'EFU Leads', path: `${basePath}/efu-leads`, icon: ShieldCheck },
+      ]
     : baseNavItems
 
   return (
