@@ -13,50 +13,73 @@ interface Agent {
   description: string
   agentId: string
   features: string[]
+  status: 'active' | 'inactive'
 }
 
 const AGENTS: Agent[] = [
   {
     id: '1',
+    name: 'EFU Sale Agent',
+    description: 'Handles EFU life insurance sales and policy inquiries',
+    agentId: 'agent_9ef5162f1944a32b558cbf5b12',
+    features: ['Policy sales', 'Plan comparison', 'Premium quotes'],
+    status: 'active',
+  },
+  {
+    id: '2',
+    name: 'DAWEOO Support Agent',
+    description: 'Provides customer support for DAWEOO services',
+    agentId: 'agent_d3a07b125c9d6f8a5a1c16a7d7',
+    features: ['Ticket support', 'Service inquiries', 'Issue resolution'],
+    status: 'active',
+  },
+  {
+    id: '3',
     name: 'AutoCare Receptionist',
     description: 'Takes service & maintenance bookings',
     agentId: 'agent_68d22a69f45a3ee37168684831',
     features: ['Schedule repairs', 'Service history', 'Emergency handling'],
+    status: 'inactive',
   },
   {
-    id: '2',
+    id: '4',
     name: 'Real Estate Receptionist',
     description: 'Handles buyer & seller inquiries',
     agentId: 'agent_71d88e63296903b65f6dc0d372',
     features: ['Property tours', 'Price inquiries', 'Agent scheduling'],
+    status: 'inactive',
   },
   {
-    id: '3',
+    id: '5',
     name: 'Medical Receptionist',
     description: 'Books appointments, routes patients',
     agentId: 'agent_8ce17d51123f73b631cb29c6e0',
     features: ['Appointments', 'Insurance', 'Prescriptions'],
+    status: 'inactive',
   },
   {
-    id: '4',
+    id: '6',
     name: 'Law Firm Receptionist',
     description: 'Screens legal clients & schedules consults',
     agentId: 'agent_2c8c98f3046de28c6c9d7fa086',
     features: ['Case screening', 'Consultations', 'Documents'],
+    status: 'inactive',
   },
   {
-    id: '5',
+    id: '7',
     name: 'Spa/Salon Receptionist',
     description: 'Manages spa & salon bookings',
     agentId: 'agent_26634c1417075ff72793ffe658',
     features: ['Service booking', 'Stylist selection', 'Packages'],
+    status: 'inactive',
   },
   {
-    id: '6',
+    id: '8',
     name: 'Fitness/Gym Receptionist',
     description: 'Handles gym tours & memberships',
     agentId: 'agent_6ecbb6ef0fa72411251e18a0a1',
     features: ['Memberships', 'Class booking', 'Trainers'],
+    status: 'inactive',
   },
 ]
 
@@ -366,29 +389,39 @@ export default function AgentSelectorPage() {
         {AGENTS.map((agent) => {
           const isSelected = selectedAgentId === agent.agentId
           const isActive = activeAgentId === agent.agentId
+          const isOutOfOrder = agent.status === 'inactive'
 
           return (
             <div
               key={agent.id}
               className={cn(
-                'group relative cursor-pointer transition-all duration-300',
+                'group relative transition-all duration-300',
                 'bg-white/5 backdrop-blur-md border rounded-2xl p-6',
                 'shadow-[0_0_20px_rgba(0,0,0,0.4)]',
-                'hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]',
-                isSelected && !isActive && 'border-blue-500/50 bg-blue-500/10 shadow-[0_0_30px_rgba(168,85,247,0.4)]',
+                isOutOfOrder && 'opacity-50 cursor-not-allowed',
+                !isOutOfOrder && 'cursor-pointer hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]',
+                isSelected && !isActive && !isOutOfOrder && 'border-blue-500/50 bg-blue-500/10 shadow-[0_0_30px_rgba(168,85,247,0.4)]',
                 isActive && 'border-emerald-500/50 bg-emerald-500/10 shadow-[0_0_30px_rgba(16,185,129,0.4)]',
-                !isSelected && !isActive && 'border-white/10 hover:border-blue-500/30'
+                !isSelected && !isActive && !isOutOfOrder && 'border-white/10 hover:border-blue-500/30',
+                isOutOfOrder && !isSelected && 'border-white/5'
               )}
-              onClick={() => !isCallActive && setSelectedAgentId(agent.agentId)}
+              onClick={() => !isCallActive && !isOutOfOrder && setSelectedAgentId(agent.agentId)}
             >
+              {/* Out of Order Badge */}
+              {isOutOfOrder && (
+                <div className="absolute -top-3 -right-3 px-3 py-1.5 bg-gray-600 text-gray-200 text-xs font-semibold rounded-full shadow-lg flex items-center gap-1.5">
+                  <PhoneOff className="h-3.5 w-3.5" />
+                  Out of Order
+                </div>
+              )}
               {/* Selected/Active Badge */}
-              {isActive && (
+              {isActive && !isOutOfOrder && (
                 <div className="absolute -top-3 -right-3 px-3 py-1.5 bg-emerald-500 text-white text-xs font-semibold rounded-full shadow-lg flex items-center gap-1.5">
                   <CheckCircle className="h-3.5 w-3.5" />
                   Active Agent
                 </div>
               )}
-              {isSelected && !isActive && (
+              {isSelected && !isActive && !isOutOfOrder && (
                 <div className="absolute -top-3 -right-3 h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center shadow-lg">
                   <CheckCircle className="h-5 w-5 text-white" />
                 </div>

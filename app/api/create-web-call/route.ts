@@ -1,20 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Retell from 'retell-sdk'
 
-// IMPORTANT: Initialize Retell SDK with API key from environment variable
-// The API key MUST be stored server-side in .env.local as RETELL_API_KEY
-// NEVER expose the API key on the frontend
-const client = new Retell({
-  apiKey: process.env.RETELL_API_KEY!,
-})
+// Agents that use the new Retell API key
+const NEW_KEY_AGENTS = [
+  'agent_9ef5162f1944a32b558cbf5b12', // EFU Sale Agent
+  'agent_d3a07b125c9d6f8a5a1c16a7d7', // DAWEOO Support Agent
+]
 
 export async function POST(request: NextRequest) {
   try {
-    // STEP 1: Parse the request body to get the selected agent_id
     const body = await request.json()
     const { agent_id } = body
 
-    // STEP 2: Validate that agent_id was provided
     if (!agent_id) {
       return NextResponse.json(
         { error: 'agent_id is required' },
@@ -22,8 +19,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // STEP 3: Call Retell API to create a web call for the selected agent
-    // This returns access_token, call_id, and other call details
+    // Use the correct API key based on which agent is being called
+    const apiKey = NEW_KEY_AGENTS.includes(agent_id)
+      ? process.env.RETELL_API_KEY_NEW!
+      : process.env.RETELL_API_KEY!
+
+    const client = new Retell({ apiKey })
+
     const webCallResponse = await client.call.createWebCall({
       agent_id: agent_id,
     })
