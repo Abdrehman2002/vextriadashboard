@@ -41,7 +41,7 @@ export default function AdminAppointments() {
   const [sheetAppointments, setSheetAppointments] = useState<SheetAppointment[]>([])
   const [loading, setLoading] = useState(true)
   const [currentDate, setCurrentDate] = useState(new Date())
-  const [activeTab, setActiveTab] = useState<'normal' | 'google'>('normal')
+
   const [showDialog, setShowDialog] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null)
   const [selectedDay, setSelectedDay] = useState<number | null>(null)
@@ -239,46 +239,16 @@ export default function AdminAppointments() {
             {totalAppointments} {totalAppointments === 1 ? 'appointment' : 'appointments'} this month
           </p>
         </div>
-        {activeTab === 'normal' && (
-          <Button
-            onClick={() => handleAddEvent()}
-            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 shadow-lg shadow-blue-500/30"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            Add Appointment
-          </Button>
-        )}
+        <Button
+          onClick={() => handleAddEvent()}
+          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 shadow-lg shadow-blue-500/30"
+        >
+          <Plus className="h-4 w-4 mr-2" />
+          Add Appointment
+        </Button>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 border-b border-white/10 bg-white/5 rounded-t-2xl p-1">
-        <button
-          onClick={() => setActiveTab('normal')}
-          className={cn(
-            "px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200",
-            activeTab === 'normal'
-              ? 'bg-blue-600/30 text-blue-300 border-b-2 border-blue-500 shadow-sm'
-              : 'text-gray-400 hover:text-white hover:bg-white/5'
-          )}
-        >
-          <CalendarIcon className="h-4 w-4 inline mr-2" />
-          Calendar View
-        </button>
-        <button
-          onClick={() => setActiveTab('google')}
-          className={cn(
-            "px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200",
-            activeTab === 'google'
-              ? 'bg-blue-600/30 text-blue-300 border-b-2 border-blue-500 shadow-sm'
-              : 'text-gray-400 hover:text-white hover:bg-white/5'
-          )}
-        >
-          Google Calendar
-        </button>
-      </div>
-
-      {activeTab === 'normal' && (
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl shadow-black/40 overflow-hidden">
+      <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl shadow-black/40 overflow-hidden">
           {/* Calendar Header */}
           <div className="p-6 border-b border-white/10">
             <div className="flex items-center justify-between">
@@ -402,26 +372,6 @@ export default function AdminAppointments() {
             </div>
           </div>
         </div>
-      )}
-
-      {activeTab === 'google' && (
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl shadow-black/40 overflow-hidden">
-          <div className="p-6 border-b border-white/10">
-            <h3 className="text-lg font-semibold text-white">Google Calendar Integration</h3>
-            <p className="text-sm text-gray-400 mt-1">View and manage your calendar in real-time</p>
-          </div>
-          <div className="p-0">
-            <iframe
-              src="https://calendar.google.com/calendar/embed?src=1c82143bf911816e35b0a7ddfb78e629c24fdaa19ed90f38210e336c549129be%40group.calendar.google.com&ctz=America%2FChicago&mode=WEEK"
-              style={{ border: 0 }}
-              width="100%"
-              height="800"
-              frameBorder={0}
-              className="w-full"
-            />
-          </div>
-        </div>
-      )}
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="max-w-2xl bg-[#0B0715] border-white/10">

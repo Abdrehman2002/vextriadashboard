@@ -28,7 +28,7 @@ interface SheetRow {
 export default function AdminData() {
   const [rows, setRows] = useState<SheetRow[]>([])
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'normal' | 'sheets'>('normal')
+
   const [showDialog, setShowDialog] = useState(false)
   const [editingRow, setEditingRow] = useState<SheetRow | null>(null)
   const [formData, setFormData] = useState<Partial<SheetRow>>({})
@@ -167,44 +167,17 @@ export default function AdminData() {
             <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             {loading ? 'Refreshing...' : 'Refresh'}
           </Button>
-          {activeTab === 'normal' && (
-            <Button
-              onClick={handleAdd}
-              className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add Row
-            </Button>
-          )}
+          <Button
+            onClick={handleAdd}
+            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Add Row
+          </Button>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 border-b border-white/10 bg-white/5 rounded-t-2xl p-1">
-        <button
-          onClick={() => setActiveTab('normal')}
-          className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-            activeTab === 'normal'
-              ? 'bg-blue-600/30 text-blue-300 border-b-2 border-blue-500 shadow-sm'
-              : 'text-gray-400 hover:text-white hover:bg-white/5'
-          }`}
-        >
-          Normal View
-        </button>
-        <button
-          onClick={() => setActiveTab('sheets')}
-          className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-            activeTab === 'sheets'
-              ? 'bg-blue-600/30 text-blue-300 border-b-2 border-blue-500 shadow-sm'
-              : 'text-gray-400 hover:text-white hover:bg-white/5'
-          }`}
-        >
-          Google Sheets View
-        </button>
-      </div>
-
-      {activeTab === 'normal' && (
-        <div className="bg-white/5 backdrop-blur-md border border-white/5 rounded-2xl shadow-xl shadow-black/40 overflow-hidden">
+      <div className="bg-white/5 backdrop-blur-md border border-white/5 rounded-2xl shadow-xl shadow-black/40 overflow-hidden">
           <div className="p-6">
             <div className="overflow-x-auto -mx-6">
               <table className="w-full min-w-[640px]">
@@ -395,26 +368,6 @@ export default function AdminData() {
             )}
           </div>
         </div>
-      )}
-
-      {activeTab === 'sheets' && (
-        <div className="bg-white/5 backdrop-blur-md border border-white/5 rounded-2xl shadow-xl shadow-black/40 overflow-hidden">
-          <div className="p-6 border-b border-white/10">
-            <h3 className="text-lg font-semibold text-white">Google Sheets - Edit Directly</h3>
-            <p className="text-sm text-gray-400 mt-1">Make changes directly in the Google Sheet</p>
-          </div>
-          <div className="p-0">
-            <iframe
-              src="https://docs.google.com/spreadsheets/d/1Uww2j5jNAZa1IN3o_EX_oLvzrg1idBhfdhSDXUREEbg/edit#gid=0"
-              width="100%"
-              height="800"
-              style={{ border: 'none' }}
-              allow="clipboard-read; clipboard-write"
-              className="w-full"
-            />
-          </div>
-        </div>
-      )}
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="max-w-2xl">

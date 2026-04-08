@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Dev Server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "C:\\Users\\Thinkbook 16 G6\\Desktop\\Vextria dashboard",
+      "port": 3001,
+      "autoPort": true
+    }
+  ]
+}

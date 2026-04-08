@@ -184,9 +184,6 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics> {
       summary: row[12] || '',
     })).filter(row => row.dateBooked || row.appointmentDate || row.callerName)
 
-    const now = new Date()
-    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
-
     let totalCalls = 0
     const callsByDate: Record<string, number> = {}
     const appointmentsByDate: Record<string, number> = {}
@@ -198,16 +195,14 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics> {
       const timestamp = new Date(dateValue)
       if (isNaN(timestamp.getTime())) return
 
-      if (timestamp >= thirtyDaysAgo) {
-        totalCalls++
+      totalCalls++
 
-        const dateStr = timestamp.toISOString().split('T')[0]
-        callsByDate[dateStr] = (callsByDate[dateStr] || 0) + 1
+      const dateStr = timestamp.toISOString().split('T')[0]
+      callsByDate[dateStr] = (callsByDate[dateStr] || 0) + 1
 
-        // Count appointments (rows with Date Booked) for revenue calculation
-        if (row.dateBooked) {
-          appointmentsByDate[dateStr] = (appointmentsByDate[dateStr] || 0) + 1
-        }
+      // Count appointments (rows with Date Booked) for revenue calculation
+      if (row.dateBooked) {
+        appointmentsByDate[dateStr] = (appointmentsByDate[dateStr] || 0) + 1
       }
     })
 
@@ -217,13 +212,14 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics> {
     // Missed Revenue Saved = totalCalls * 300
     const missedRevenueSaved = totalCalls * 300
 
-    // Create last 10 days array with proper date formatting
+    // Build chart data from all dates that have data, sorted chronologically
+    const allDates = [...new Set([...Object.keys(callsByDate), ...Object.keys(appointmentsByDate)])].sort()
+
     const callsPerDay: { date: string; calls: number }[] = []
     const revenuePerDay: { date: string; revenue: number }[] = []
 
-    for (let i = 9; i >= 0; i--) {
-      const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000)
-      const dateStr = date.toISOString().split('T')[0]
+    allDates.forEach(dateStr => {
+      const date = new Date(dateStr)
       const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`
 
       callsPerDay.push({
@@ -231,13 +227,12 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics> {
         calls: callsByDate[dateStr] || 0,
       })
 
-      // Revenue = number of appointments booked on that day × $300
       const appointments = appointmentsByDate[dateStr] || 0
       revenuePerDay.push({
         date: formattedDate,
         revenue: appointments * 300,
       })
-    }
+    })
 
     return {
       totalCalls,

@@ -128,7 +128,7 @@ export default function AdminOverview() {
             Dashboard Overview
           </h1>
           <p className="text-xs text-gray-400 mt-1">
-            Last 30 days · {metrics?.totalCalls || 0} calls · {metrics?.totalCalls ? Math.round((metrics.answeredCalls / metrics.totalCalls) * 100) : 0}% answer rate
+            All time · {metrics?.totalCalls || 0} calls · {metrics?.totalCalls ? Math.round((metrics.answeredCalls / metrics.totalCalls) * 100) : 0}% answer rate
           </p>
         </div>
         <div className="flex items-center gap-3 px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full">
