@@ -200,11 +200,14 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics> {
       const dateStr = timestamp.toISOString().split('T')[0]
       callsByDate[dateStr] = (callsByDate[dateStr] || 0) + 1
 
-      // Count appointments (rows with Date Booked) for revenue calculation
-      if (row.dateBooked) {
+        // Count appointments with an appointment date as bookings
+      if (row.appointmentDate) {
         appointmentsByDate[dateStr] = (appointmentsByDate[dateStr] || 0) + 1
       }
     })
+
+    // Count total bookings from sheet (rows that have an appointment date)
+    const totalBookings = dataRows.filter(row => row.appointmentDate).length
 
     // answeredCalls = totalCalls (we don't track missed calls separately)
     const answeredCalls = totalCalls
@@ -238,8 +241,8 @@ export async function getDashboardMetrics(): Promise<DashboardMetrics> {
       totalCalls,
       answeredCalls,
       missedRevenueSaved,
-      totalRevenueSaved: 0, // Will be calculated in API route
-      upcomingAppointments: 0, // Will be calculated in API route
+      totalRevenueSaved: totalBookings * 300,
+      upcomingAppointments: totalBookings,
       callsPerDay,
       revenuePerDay,
     }

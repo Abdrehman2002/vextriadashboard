@@ -20,13 +20,8 @@ export async function GET() {
       getCalendarSummary(),
     ])
 
-    const upcomingAppointments = calendarSummary.upcomingCount || 0
-    const totalRevenueSaved = upcomingAppointments * 300
-
     const metrics = {
       ...sheetMetrics,
-      upcomingAppointments,
-      totalRevenueSaved,
     }
 
     // Update cache
