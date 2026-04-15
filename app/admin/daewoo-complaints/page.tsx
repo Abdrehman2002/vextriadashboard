@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import {
   Phone, User, RefreshCw, ChevronDown, ChevronUp,
   MessageSquare, AlertCircle, CheckCircle2, Clock,
-  MapPin, PlayCircle, FileText, Frown, Meh, Smile, XCircle
+  MapPin, PlayCircle, FileText, Frown, Meh, Smile, XCircle, Trash2
 } from 'lucide-react'
 
 interface TranscriptTurn {
@@ -72,6 +72,7 @@ export default function DaewooComplaintsPage() {
   const [filterType, setFilterType] = useState<string>('all')
   const [filterOutcome, setFilterOutcome] = useState<string>('all')
   const [refreshing, setRefreshing] = useState(false)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
 
   const fetchComplaints = async (showRefresh = false) => {
     if (showRefresh) setRefreshing(true)
@@ -85,6 +86,20 @@ export default function DaewooComplaintsPage() {
     } finally {
       setLoading(false)
       setRefreshing(false)
+    }
+  }
+
+  const deleteComplaint = async (call_id: string) => {
+    if (!confirm('Delete this complaint record permanently?')) return
+    setDeletingId(call_id)
+    try {
+      await fetch(`/api/daewoo-complaints/${call_id}`, { method: 'DELETE' })
+      setComplaints(prev => prev.filter(c => c.call_id !== call_id))
+      if (expandedId === call_id) setExpandedId(null)
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setDeletingId(null)
     }
   }
 
@@ -291,6 +306,19 @@ export default function DaewooComplaintsPage() {
                   <span className={`hidden md:block text-xs px-2 py-1 rounded-md border ${OConfig.color}`}>
                     {OConfig.label}
                   </span>
+
+                  {/* Delete button */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); deleteComplaint(complaint.call_id) }}
+                    disabled={deletingId === complaint.call_id}
+                    className="p-1.5 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-all shrink-0"
+                    title="Delete record"
+                  >
+                    {deletingId === complaint.call_id
+                      ? <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                      : <Trash2 className="h-3.5 w-3.5" />
+                    }
+                  </button>
 
                   {isExpanded
                     ? <ChevronUp className="h-4 w-4 text-gray-400 shrink-0" />
