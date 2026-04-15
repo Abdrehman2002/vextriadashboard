@@ -30,7 +30,7 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
     { label: 'Overview', path: `${basePath}/overview`, icon: LayoutDashboard },
     { label: 'Data', path: `${basePath}/data`, icon: Database },
     { label: 'Appointments', path: `${basePath}/appointments`, icon: Calendar },
-    { label: 'Daewoo Tickets', path: `${basePath}/complaints`, icon: AlertCircle },
+    { label: 'Daewoo Booking/Tickets', path: `${basePath}/complaints`, icon: AlertCircle },
     { label: 'Business Info', path: `${basePath}/business-info`, icon: Building },
   ]
 
