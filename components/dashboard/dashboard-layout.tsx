@@ -39,7 +39,7 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
     ? [...baseNavItems,
         { label: 'Agent Selector', path: `${basePath}/agent-selector`, icon: Headset },
         { label: 'EFU Leads', path: `${basePath}/efu-leads`, icon: ShieldCheck },
-        { label: 'Daewoo Complaints', path: `${basePath}/daewoo-complaints`, icon: Bus },
+        { label: 'Daewoo Tickets', path: `${basePath}/daewoo-complaints`, icon: Bus },
       ]
     : baseNavItems
 
