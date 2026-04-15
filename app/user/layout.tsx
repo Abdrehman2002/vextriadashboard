@@ -18,7 +18,7 @@ export default function UserLayout({
       setIsAuthorized(true)
 
       // Prefetch commonly accessed routes
-      const routes = ['/user/overview', '/user/data', '/user/appointments', '/user/business-info']
+      const routes = ['/user/overview', '/user/data', '/user/appointments', '/user/complaints', '/user/business-info']
       routes.forEach(route => {
         const link = document.createElement('link')
         link.rel = 'prefetch'

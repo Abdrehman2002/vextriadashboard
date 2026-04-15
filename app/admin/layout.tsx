@@ -18,7 +18,7 @@ export default function AdminLayout({
       setIsAuthorized(true)
 
       // Prefetch commonly accessed routes
-      const routes = ['/admin/overview', '/admin/data', '/admin/appointments', '/admin/business-info']
+      const routes = ['/admin/overview', '/admin/data', '/admin/appointments', '/admin/complaints', '/admin/business-info']
       routes.forEach(route => {
         const link = document.createElement('link')
         link.rel = 'prefetch'
