@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Database, Calendar, Building, LogOut, ChevronsRight, ChevronDown, Headset, AlertCircle, ShieldCheck } from 'lucide-react'
+import { LayoutDashboard, Database, Calendar, Building, LogOut, ChevronsRight, ChevronDown, Headset, AlertCircle, ShieldCheck, Bus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface DashboardLayoutProps {
@@ -39,6 +39,7 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
     ? [...baseNavItems,
         { label: 'Agent Selector', path: `${basePath}/agent-selector`, icon: Headset },
         { label: 'EFU Leads', path: `${basePath}/efu-leads`, icon: ShieldCheck },
+        { label: 'Daewoo Complaints', path: `${basePath}/daewoo-complaints`, icon: Bus },
       ]
     : baseNavItems
 
