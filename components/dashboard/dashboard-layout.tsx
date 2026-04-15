@@ -30,7 +30,7 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
     { label: 'Overview', path: `${basePath}/overview`, icon: LayoutDashboard },
     { label: 'Data', path: `${basePath}/data`, icon: Database },
     { label: 'Appointments', path: `${basePath}/appointments`, icon: Calendar },
-    { label: 'Complaints', path: `${basePath}/complaints`, icon: AlertCircle },
+    { label: 'Daewoo Tickets', path: `${basePath}/complaints`, icon: AlertCircle },
     { label: 'Business Info', path: `${basePath}/business-info`, icon: Building },
   ]
 
@@ -39,7 +39,7 @@ export default function DashboardLayout({ mode, children }: DashboardLayoutProps
     ? [...baseNavItems,
         { label: 'Agent Selector', path: `${basePath}/agent-selector`, icon: Headset },
         { label: 'EFU Leads', path: `${basePath}/efu-leads`, icon: ShieldCheck },
-        { label: 'Daewoo Tickets', path: `${basePath}/daewoo-complaints`, icon: Bus },
+        { label: 'Daewoo Complaints', path: `${basePath}/daewoo-complaints`, icon: Bus },
       ]
     : baseNavItems
 
